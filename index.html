@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			/*
+			 * Agregue una función de respuesta onclick a todos los nodos de #employeetable:
+			  * 1. Aparece un cuadro de diálogo: ¿Está seguro de que desea eliminar la información de xx? xx es el valor de texto del primer nodo hijo td del tr donde se encuentra el nodo actual.
+			  * Y eliminar los espacios iniciales y finales
+			  * 2. Si hace clic en Aceptar, elimine la fila del nodo a
+			 * 
+			  * Nota:
+			  * 1. Un nodo es un hipervínculo que puede cancelar el comportamiento predeterminado al devolver falso en su evento onclick
+			  * 2. El padre directo de tr es tbody, no table
+			  * 3. El código de recorte se puede escribir como una función de recorte (str)
+			 * 
+			 * 
+			  * Agregue la función de respuesta onclick para #addEmpButton:
+			  * 1. Obtenga el valor de #name, #email, #salary text box
+			  * 2. Cree 3 nodos td utilizando el valor de texto obtenido por 1. Al crear un nodo tr y agregue los 3 nodos td anteriores como elementos secundarios del nodo tr
+			 * <tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Salary</th>
+						<th>&nbsp;</th>
+					</tr>
+			  * 3. Cree un nodo td: <td> <a href="deleteEmp?id=xxx"> Eliminar </a> </ td>
+			  * 4. Añadir td creado por 3 como hijo de tr
+			  * 5.Agregue tr como hijo del hijo tbody de #employeetable
+			  * 6. Agregue una función de respuesta onclick al nodo secundario tr recién creado de tr para que también tenga la función de eliminación
+			 * 
+			* */
+			// Eliminar el contenido del nodo actual
+			function deleteNode(tempNode){
+				// Obtener el nodo padre
+				var parNode = tempNode.parentNode;
+				// Eliminar el nodo hijo del padre
+				parNode.removeChild(tempNode);
+			}
+			// Eliminar el espacio antes y después
+			function trim(str){
+				var reg = /^\s*|\s*$/g;
+				return str.replace(reg,"");
+			}
+			// eliminar la operación del botón
+			function shanchu(){
+				var aNodes = document.getElementById("employeetable").getElementsByTagName("a");
+				for(var i = 0; i < aNodes.length; i++){
+					aNodes[i].onclick = function(){
+						// El primer par es td y el segundo es tr
+						var trNode = this.parentNode.parentNode;
+						
+						var textContent = trNode.getElementsByTagName("td")[0].firstChild.nodeValue;
+						
+						textContent = trim(textContent);
+						
+						var flag = confirm("¿Estás seguro de que quieres eliminar"+textContent+"¿Información?");
+						if(flag){
+							deleteNode(trNode);
+						}
+						return false;
+					}
+				}
+			}
+			// Añadir contenido
+			function tianjia(){
+				
+				var subNode = document.getElementById("addEmpButton");
+				// botón de enviar
+				subNode.onclick = function(){
+					var nameVal = document.getElementById("name").value;
+					var emailVal = document.getElementById("email").value;
+					var saVal = document.getElementById("salary").value;
+					
+					var nameTd = document.createElement("td");
+					nameTd.appendChild(document.createTextNode(nameVal));
+					
+					var emailTd = document.createElement("td");
+					emailTd.appendChild(document.createTextNode(emailVal));
+					
+					var saTd = document.createElement("td");
+					saTd.appendChild(document.createTextNode(saVal));
+					
+					var tr = document.createElement("tr");
+					
+					tr.appendChild(nameTd);
+					tr.appendChild(emailTd);
+					tr.appendChild(saTd);
+					
+					//<td><a href="deleteEmp?id=xxx">Delete</a></td>
+					var aNode = document.createElement("a");
+					aNode.href = "deleteEmp?id=xxx";
+					aNode.appendChild(document.createTextNode("Delete"));
+					var aTd = document.createElement("td");
+					aTd.appendChild(aNode);
+					
+					tr.appendChild(aTd);
+					
+					document.getElementById("employeetable")
+					.getElementsByTagName("tbody")[0].appendChild(tr)
+				}
+			}
+			
+			window.onload = function(){
+				shanchu();
+				tianjia();
+			}
+			
+		</script>>
+	</head>
+	<body>
+		
+		<center>
+			<br> <br>  Agregar nuevo empleado <br><br> name: <input type="text"
+				name="name" id="name"/>&nbsp;&nbsp; email: <input type="text" name="email" id="email" />
+				&nbsp;&nbsp; 	salary: <input type="text" name="salary" id="salary" value=""/> <br> <br>
+				<button id="addEmpButton">Submit</button>
+			<br> <br>
+			<hr>
+			<br> <br>
+			
+			<table id="employeetable" border="1" cellpadding="5" cellspacing="">
+				<tbody>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Salary</th>
+						<th>&nbsp;</th>
+					</tr>
+					<tr>
+						<td>Tom</td>
+						<td>tom@tom.com</td>
+						<td>5000</td>
+						<td><a href="deleteEmp?id=001">Delete</a></td>
+					</tr>
+					<tr>
+						<td>Jerry</td>
+						<td>Jerry@sohu.com</td>
+						<td>8000</td>
+						<td><a href="deleteEmp?id=002">Delete</a></td>
+					</tr>
+					<tr>
+						<td>Bob</td>
+						<td>bob@tom.com</td>
+						<td>10000</td>
+						<td><a href="deleteEmp?id=003">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</center>
+	</body>
+</html>
