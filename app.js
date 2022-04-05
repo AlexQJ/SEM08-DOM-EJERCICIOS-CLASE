@@ -18,20 +18,31 @@ hola.innerHTML = `
 // function myFunction() {
 //   console.log('evento')
 // }
-function agregaEncabezado() {
-  document.getElementById('encabezado').innerHTML = '<h1>Encabezado</h1>';
-}
-
-let btnParrafo = document.getElementById('boton2')
-btnParrafo.addEventListener('click', function () {
-  document.getElementById('parrafo').innerHTML = '<p>Parrafo</p>';
-})
 
 
-function mensaje() {
-  let mensaje = prompt('Teclea el mensaje a visualizar.');
-  alert(mensaje);
-}
+/* * agregar 3 botones:
+    * TODO 1: El primero agrega un h1 al documento
+    * TODO 2: El segundo agrega un parrafo al documento
+    * TODO 3: El tercero ejecutara un alert con un mensaje
+*/
+
+const btn1 = document.getElementById('boton1');
+const btn2 = document.getElementById('boton2');
+const btn3 = document.getElementById('boton3');
+const demo = document.getElementById('demo');
+
+btn1.addEventListener('click', ()=>{
+  demo.innerHTML += `<h1>Soy un Encabezado desde Event Listener</h1>`;
+});
+
+btn2.addEventListener('click', ()=>{
+  demo.innerHTML += `<p>Soy un parrafo desde Event Listener</p>`;
+});
+
+btn3.addEventListener('click', ()=>{
+  alert('Soy una alerta desde Event Listener');
+});
+
 
 
 
