@@ -2,30 +2,34 @@ let hola = document.getElementById('hola');
 hola.innerHTML = 'Hola Bienvenido a la manipulacion del DOM';
 
 
-let fondo = document.getElementById("primer1");
+/* *
+    TODO: Agrega un div y 3 botones html y cada boton tendra su evento:
+    TODO 1: El primero cambiara el fondo del div a rojo
+    TODO 2: El segundo cambiara el tamaño al div
+    TODO 3: El tercero le asignara un borde al div
+ */
 
-fondo.addEventListener("click", myFondo);
+    const resultado = document.getElementById('resultado');
+    const btn1 = document.getElementById('btn-1');
+    const btn2 = document.getElementById('btn-2');
+    const btn3 = document.getElementById('btn-3');
 
-function myFondo() {
+    btn1.addEventListener('click',()=>{
+      if(resultado.style.background === ""){
+        resultado.style.background = "red";
+      }else if(resultado.style.background === "red"){
+        resultado.style.background = "";
+      }
+    
+    });
 
-  let element = document.getElementById("resultado");
+    btn2.addEventListener('click',()=>{
+      resultado.style.width = "200px";
+      resultado.style.height = "200px";
+      resultado.textContent = '';
+      resultado.style.borderRadius = "50%";
+    });
 
-  element.style.background = "#F8360D";
-
-}
-
-let tamanio = document.getElementById("segund2");
-
-tamanio.addEventListener("click", myTamanio);
-
-function myTamanio() {
-  let element = document.getElementById("resultado");
-  element.style.fontSize = "50px";
-}
-
-let border = document.getElementById('tercer3')
-
-border.addEventListener('click', () => {
-  let element = document.getElementById('resultado')
-  element.style.border = '3px solid blue'
-})
+    btn3.addEventListener('click',()=>{
+      resultado.style.border = "35px solid green";
+    });
