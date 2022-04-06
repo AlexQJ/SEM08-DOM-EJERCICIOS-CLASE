@@ -9,6 +9,9 @@ const inputValue = document.querySelector('#input-1');
 // Definimos un array vacio;
 let arr = [];
 
+//Definimos un elemento contenedor para las listas
+let container = document.getElementById('lista');
+
 //Creamos un Listener que escuchara el click del boton guardar.
 btnGuardar.addEventListener('click', ()=>{
   // agrega el valor del input al array
@@ -25,11 +28,13 @@ btnGuardar.addEventListener('click', ()=>{
 
 
 function renderElement(){
-  let container = document.getElementById('lista');
   container.innerHTML = '';
-  arr.forEach((el)=>{
+  arr.forEach((el, index)=>{
     container.innerHTML += `
-      <li>${el}</li>
+      <li id="${index}">
+        ${el}
+      </li>
+      <button onClick="borrarElemento(${index})">🗑️</button>
   `;
   });
 
@@ -43,3 +48,13 @@ function getElements(){
 }
 
 getElements();
+
+
+//  Retomando el ejercicio anterior, agregar un boton de eliminar a cada elemento de la lista de nombres y que actualice la interfaz y el local storage
+
+
+function borrarElemento(i){
+  arr.splice(i, 1)
+  localStorage.setItem('lista-pokemon', arr);
+  renderElement();
+};
