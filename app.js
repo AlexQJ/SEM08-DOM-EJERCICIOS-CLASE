@@ -39,7 +39,7 @@ function renderElement(){
 function getElements(){
   let localS = localStorage.getItem('lista-pokemon');
 
-   Array = localS.split(',');
+   arr = localS.split(',');
 }
 
 getElements();
